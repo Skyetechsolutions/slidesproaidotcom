@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./AboutPage.css";
+
 // Button
 const Button = ({ children, variant = "primary", size = "md", asChild = false, ...props }) => {
   const className = `btn ${variant} ${size}`;
@@ -34,11 +35,9 @@ const Star = () => (
   <svg xmlns="http://www.w3.org/2000/svg" className="icon star" viewBox="0 0 24 24" fill="currentColor">
     <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
   </svg>
-);
-
-// Navbar
-const Navbar = () => {
+);const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,7 +54,7 @@ const Navbar = () => {
         top: 0,
         left: 0,
         width: "100%",
-        padding: "1rem", // smaller padding, keeps login away from edge
+        padding: "1rem",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
@@ -69,7 +68,7 @@ const Navbar = () => {
         zIndex: 50,
       }}
     >
-      {/* Logo (left) */}
+      {/* Logo */}
       <a
         href="#hero"
         style={{
@@ -84,33 +83,68 @@ const Navbar = () => {
         SLIDESPROAI
       </a>
 
-      {/* Nav + Button (right side group) */}
-      <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
-        <a href="#about" style={{ color: "#fff", textDecoration: "none" }}>
-          About
-        </a>
-        <a href="#features" style={{ color: "#fff", textDecoration: "none" }}>
-          Features
-        </a>
-        <a href="#footer" style={{ color: "#fff", textDecoration: "none" }}>
-          Contact
-        </a>
-         <a href="#Usage" style={{ color: "#fff", textDecoration: "none" }}>
-          How to Use?
-        </a>
+      {/* Desktop Nav */}
+      <div className="desktop-nav">
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="#footer">Contact</a>
+        <a href="#Usage">How to Use?</a>
 
-        {/* Login button (slightly inward, not on the edge) */}
-        <div style={{ marginLeft: "1rem", marginRight:"2rem" }}>
+        <div style={{ marginLeft: "1rem", marginRight: "2rem" }}>
           <Button variant="primary" size="md" asChild>
             <Link to="http://slidesproai.in/">Login</Link>
           </Button>
         </div>
       </div>
+
+      {/* Hamburger Button */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="hamburger-btn"
+        aria-label="Toggle menu"
+      >
+        {isOpen ? (
+          /* Close Icon (X) */
+          <svg xmlns="http://www.w3.org/2000/svg" 
+               fill="none" 
+               viewBox="0 0 24 24" 
+               strokeWidth="2" 
+               stroke="white" 
+               width="28" 
+               height="28">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        ) : (
+          /* Hamburger Icon */
+          <svg xmlns="http://www.w3.org/2000/svg" 
+               fill="none" 
+               viewBox="0 0 24 24" 
+               strokeWidth="2" 
+               stroke="white" 
+               width="28" 
+               height="28">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        )}
+      </button>
+
+      {/* Mobile Nav */}
+      {isOpen && (
+        <div className="mobile-nav">
+          <a href="#about" onClick={() => setIsOpen(false)}>About</a>
+          <a href="#features" onClick={() => setIsOpen(false)}>Features</a>
+          <a href="#footer" onClick={() => setIsOpen(false)}>Contact</a>
+          <a href="#Usage" onClick={() => setIsOpen(false)}>How to Use?</a>
+          <Button variant="primary" size="md" asChild>
+            <Link to="http://slidesproai.in/" onClick={() => setIsOpen(false)}>
+              Login
+            </Link>
+          </Button>
+        </div>
+      )}
     </nav>
   );
 };
-
-
 
 export default function AboutPage() {
   return (

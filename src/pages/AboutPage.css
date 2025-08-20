@@ -78,6 +78,25 @@
 .alt-bg {
   background-color: #f3f4f6;
 }
+/* 📱 Mobile responsive fix */
+@media (max-width: 768px) {
+  .grid-2 {
+    grid-template-columns: 1fr;  /* stack instead of side-by-side */
+    text-align: center;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .section-text {
+    font-size: 0.95rem;
+  }
+
+  .video-wrapper {
+    margin-top: 1.5rem;
+  }
+}
 
 /* List */
 .list {
@@ -332,4 +351,53 @@
 .logo-placeholder {
   font-size: 40px;
   margin-bottom: 10px;
+}
+/* Desktop nav default */
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.desktop-nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Hamburger hidden by default */
+.hamburger-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Mobile menu dropdown */
+.mobile-nav {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.95);
+  width: 100%;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.mobile-nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+/* Responsive toggle */
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none;
+  }
+  .hamburger-btn {
+    display: block;
+  }
 }
